@@ -11,7 +11,8 @@ const usersSchema = Schema({
     },
     correo:{
         type: String,
-        required: true 
+        required: true,
+        unique: true
     },
     contraseña:{ 
         type: String,
@@ -21,10 +22,17 @@ const usersSchema = Schema({
         type: Number,
         required: true
     },
-    fecha:{
-        type: Date,
-        default: Date.now
+    direccion:{
+        type: String,
+        required: true
     },
+    imagenUrl:{
+        type: String
+    },
+    esAdmin: {
+        type: Boolean,
+        required: true
+    }
 })
 
 module.exports= model("usuarios", usersSchema, "patitas");

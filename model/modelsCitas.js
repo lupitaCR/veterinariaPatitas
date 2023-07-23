@@ -1,7 +1,7 @@
 const {Schema, model, default: mongoose} = require("mongoose");
 
 const citasSchema = Schema({
-    nombre:{
+    usuario:{
         type: String,
         required: true
     },
@@ -13,7 +13,7 @@ const citasSchema = Schema({
         type: String,
         default:"Perro"
     },
-    tamaño:{
+    tamano:{
         type: String,
         default:"Pequeño"
     }, 
@@ -22,11 +22,14 @@ const citasSchema = Schema({
         required: true
     },
     fecha:{
-
         type: Date,
         default: Date.now
     },
-    
+    codigoCita:{
+        type: String,
+        unique: true,
+        required: true
+    }
 })
 
 module.exports= model("citas", citasSchema, "patitas");

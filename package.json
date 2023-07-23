@@ -4,7 +4,8 @@
   "description": "Proyecto veterinaria Patitas idgs9A",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
   },
   "author": "Equipo Circo",
   "license": "ISC",
