@@ -35,4 +35,8 @@ const usersSchema = Schema({
     }
 })
 
+usersSchema.methods.setImgUrl = function setImgUrl () {
+    
+}
+
 module.exports= model("usuarios", usersSchema, "patitas");
