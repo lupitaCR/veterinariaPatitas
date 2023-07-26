@@ -18,9 +18,17 @@ function saludar() {
 const agregarUsr = (req, res) => {
     console.log('funcion agregarUsr');
     let info = req.body;
-    console.log(info);
+    //console.log(info);
     const usuario = new modeloUsuario(info);
-
+    console.log(req.file)
+    var nombre =req.file.originalname
+    console.log(nombre)
+    if (req.file) {
+        //const {filename} = req.file;
+        console.log(nombre)
+        modeloUsuario.setImgUrl
+        usuario.setImgUrl(nombre)
+    }
     usuario.save().then((result) => {
         console.log(req.body);
         return res.status(200).send({

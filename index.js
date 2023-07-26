@@ -9,6 +9,7 @@ conexion();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
+app.use('/public', express.static(`${__dirname}/storage`));
 app.use("/api/user", routerUser);
 app.use("/api/citas", routerCitas);
 app.use("/api/accesorios", routerAccesorios);

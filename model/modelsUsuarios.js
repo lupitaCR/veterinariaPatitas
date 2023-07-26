@@ -1,4 +1,4 @@
-const {Schema, model, default: mongoose} = require("mongoose");
+const {Schema, model, default: mongoose, models} = require("mongoose");
 
 const usersSchema = Schema({
     nombre:{
@@ -14,7 +14,7 @@ const usersSchema = Schema({
         required: true,
         unique: true
     },
-    contraseña:{ 
+    password:{ 
         type: String,
         required: true 
     },
@@ -33,10 +33,11 @@ const usersSchema = Schema({
         type: Boolean,
         required: true
     }
+    
 })
 
-usersSchema.methods.setImgUrl = function setImgUrl () {
-    
+usersSchema.methods.setImgUrl = function setImgUrl (filename) {
+    this.imagenUrl = `localhost:27017/public/${filename}`;
 }
 
-module.exports= model("usuarios", usersSchema, "patitas");
+module.exports = mongoose.model("patitas", usersSchema, "usuarios");

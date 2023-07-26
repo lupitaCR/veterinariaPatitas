@@ -4,7 +4,7 @@ const usuarioControler = require("../controler/controlerUsuarios");
 const upload = require("../libs/storage.js");
 
 router.get("/",usuarioControler.mostraTodosUsrs)
-.post("/",upload.single('image'),usuarioControler.agregarUsr)
+.post("/",upload.single('file'),usuarioControler.agregarUsr)
 .get("/:key/:value",usuarioControler.obtenerUsr);
 
 module.exports = router;
