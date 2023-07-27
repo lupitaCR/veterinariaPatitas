@@ -1,4 +1,5 @@
-const {Schema, model, default: mongoose} = require("mongoose");
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema;
 
 const citasSchema = Schema({
     usuario:{
@@ -32,4 +33,4 @@ const citasSchema = Schema({
     }
 })
 
-module.exports= model("citas", citasSchema, "patitas");
+module.exports = mongoose.model("citas", citasSchema);

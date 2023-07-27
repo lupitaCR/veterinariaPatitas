@@ -1,4 +1,6 @@
-const {Schema, model, default: mongoose, models} = require("mongoose");
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema;
+
 
 const usersSchema = Schema({
     nombre:{
@@ -37,7 +39,7 @@ const usersSchema = Schema({
 })
 
 usersSchema.methods.setImgUrl = function setImgUrl (filename) {
-    this.imagenUrl = `localhost:27017/public/${filename}`;
+    this.imagenUrl = `http://127.0.0.1:3001/public/${filename}`
 }
 
-module.exports = mongoose.model("patitas", usersSchema, "usuarios");
+module.exports = mongoose.model("usuarios", usersSchema);
