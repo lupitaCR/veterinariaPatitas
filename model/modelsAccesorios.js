@@ -1,4 +1,5 @@
-const {Schema, model, default: mongoose} = require("mongoose");
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema;
 
 const accesoriosSchema = Schema({
     nombreAcc:{
@@ -19,4 +20,4 @@ const accesoriosSchema = Schema({
     }
 })
 
-module.exports= model("accesorios", accesoriosSchema, "patitas");
+module.exports= mongoose.model("accesorios", accesoriosSchema);

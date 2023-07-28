@@ -1,0 +1,138 @@
+const modeloCita = require("../model/modelsCitas");
+
+/**
+    * @description Funcion para principal para api citas
+*/
+function saludarCita() {
+    console.log('Hello in the controlador');
+}
+
+/**
+    * @description Funcion para consultar citas(Admin)
+*/
+const consultarCitas = (req, res) => {
+    modeloCita.find({})
+    .then((result) => {
+        if (!result) {
+            return res.status(202).send({
+                mensaje:"No hay citas registradas",
+                status:"ok"
+            });
+        } 
+        return res.status(200).send({
+            result
+        })
+        
+    }).catch((err) => {
+        return res.status(404).send({
+            mensaje:"Hubo un error al mostrar las citas registradas",
+            status:"Error",
+            err
+        });
+    }) 
+};
+
+/**
+    * @description Funcion para filtrar citas por usuario(User)
+*/
+const consultarCitaPorUsr = (req, res) => {
+    let consulta = {};
+    consulta[req.params.key] = req.params.value;
+    modeloCita.find(consulta)
+    .then((result) => {
+        if (!result) {
+            return res.status(202).send({
+                mensaje:"No hay citas agregadas"
+            });
+        }
+        
+        return res.status(200).send({
+            status:"ok",
+            result
+        });        
+       
+    }).catch((err) => {
+       return res.status(404).send({
+           mensaje:"Hubo un error al consultar las citas",
+           status:"Error",
+           err
+        })
+    })
+};
+
+/**
+    * @description Funcion para agregar una cita(Admin and User)
+*/
+const agregarCita = (req, res) => {
+    let info = req.body;
+    const cita = new modeloCita(info); 
+
+    cita.save().then((result) => {
+        console.log(req.body);
+        return res.status(200).send({
+            mensaje: "Cita registrada",
+            status: "ok",
+            result
+        })
+    }).catch((err)=> {
+        return res.status(404).send({
+            mensaje: "Hubo un error al registrar la cita",
+            status: "Error",
+            err
+        })
+    });
+};
+
+/**
+    * @description Funcion para actualizar una cita(User)
+*/
+const editarCita = (req, res) => {
+    let consulta = {};
+    let nuevo = req.body;
+    consulta[req.params.key] = req.params.value;
+    modeloCita.findOneAndUpdate(consulta, nuevo, {nuevo:true})
+    .then((result) => {
+        return res.status(200).send({
+            mensaje:"Cita actualizada",
+            status:"ok",
+            result
+        });
+    }).catch((err) => {
+        return res.status(404).send({
+            mensaje:"Hubo un error al actulizar la cita",
+            status:"Error",
+            err
+        })
+    })
+};
+
+/**
+    * @description Funcion para eliminar una cita(User and Admin)
+*/
+const eliminarCita = (req, res) => {
+    let consulta = {};
+    consulta[req.params.key] = req.params.value;
+    modeloCita.deleteOne(consulta)
+    .then((result) => {
+        return res.status(200).send({
+            mensaje:"Cita cancelada",
+            status:"ok",
+            result
+        });
+    }).catch((err) => {
+        return res.status(404).send({
+            mensaje:"Hubo un error al cancelar la cita",
+            status:"Error",
+            err
+        })
+    })
+};
+
+module.exports = {
+    saludarCita,
+    agregarCita,
+    consultarCitas,
+    consultarCitaPorUsr,
+    editarCita,
+    eliminarCita
+};
