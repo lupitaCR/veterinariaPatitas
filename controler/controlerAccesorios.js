@@ -13,20 +13,24 @@ function saludarAccesorio() {
 const consultarTodosAccesorios = (req, res) => {
     modeloAccesorio.find({})
     .then((result) => {
-        if (!result) {
+        let arreglo = JSON.stringify(result);
+        if (arreglo === "[]") {
             return res.status(202).send({
                 mensaje:"No hay accesorios registradas",
-                status:"ok"
+                status:202
             });
-        } 
-        return res.status(200).send({
-            result
-        })
+        } else {
+            return res.status(200).send({
+                mensaje:"hay accesorios registradas",
+                status:200,
+                result
+            })
+        }
         
     }).catch((err) => {
         return res.status(404).send({
             mensaje:"Hubo un error al mostrar los accesorios",
-            status:"Error",
+            status:400,
             err
         });
     }) 
@@ -40,21 +44,24 @@ const consultarAccesorio = (req, res) => {
     consulta[req.params.key] = req.params.value;
     modeloAccesorio.find(consulta)
     .then((result) => {
-        if (!result) {
+        let arreglo = JSON.stringify(result);
+        if (arreglo === "[]") {
             return res.status(202).send({
-                mensaje:"No hay citas agregadas"
+                mensaje:"No hay citas agregadas",
+                status:202
             });
+        } else {
+            return res.status(200).send({
+                status:200,
+                result
+            });        
+           
         }
         
-        return res.status(200).send({
-            status:"ok",
-            result
-        });        
-       
     }).catch((err) => {
        return res.status(404).send({
            mensaje:"Hubo un error al consultar las citas",
-           status:"Error",
+           status:400,
            err
         })
     })
@@ -71,13 +78,13 @@ const agregarAccesorio = (req, res) => {
         console.log(req.body);
         return res.status(200).send({
             mensaje: "Accesorio registrada",
-            status: "ok",
+            status: 200,
             result
         })
     }).catch((err)=> {
         return res.status(404).send({
             mensaje: "Hubo un error al registrar el accesorio",
-            status: "Error",
+            status: 404,
             err
         })
     });

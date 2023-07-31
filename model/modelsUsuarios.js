@@ -39,7 +39,8 @@ const usersSchema = Schema({
 })
 
 usersSchema.methods.setImgUrl = function setImgUrl (filename) {
-    this.imagenUrl = `http://127.0.0.1:3001/public/${filename}`
+    //cambiar la ip de la imagen si se cambia de ip
+    this.imagenUrl = `http://192.168.0.108:3001/public/${filename}`
 }
 
 module.exports = mongoose.model("usuarios", usersSchema);

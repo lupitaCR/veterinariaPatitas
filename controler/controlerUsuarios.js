@@ -1,16 +1,11 @@
 const modeloUsuario = require("../model/modelsUsuarios");
 
-/* 
- NOTA: FALTA VALIDAR IMAGEN DE PERFIL VER VIDEOS DE WHATSAPP
-*/
-
 /**
     * @description Funcion inicial para corroborar funcionamiento correcto
 */
 function saludar() {
     console.log('Hello in the controlador');
 }
-
 
 /**
     * @description Funcion para agregar un usuario(REGISTRO)
@@ -19,7 +14,7 @@ const agregarUsr = (req, res) => {
     console.log('funcion agregarUsr');
     let info = req.body;
     const usuario = new modeloUsuario(info);
-
+    console.log(info);
     if (req.file) {
         const { filename } = req.file
         usuario.setImgUrl(filename);
@@ -29,20 +24,20 @@ const agregarUsr = (req, res) => {
         console.log(req.body);
         return res.status(200).send({
             mensaje: "Usuario registrado",
-            status: "ok",
+            status: 200,
             result //toda la info de ese guardado
         })
     }).catch((err)=> {
         if (err.code == "11000") {
             return res.status(400).send({
                 mensaje: "El usuario ya existe",
-                status: "Error",
+                status: 400,
                 err
             })
         } else {
             return res.status(404).send({
                 mensaje: "Error al registrar usuario",
-                status: "Error",
+                status: 404,
                 err
             })
         }
@@ -57,22 +52,26 @@ const agregarUsr = (req, res) => {
 const obtenerUsr = (req, res) => {
     let consulta = {};
     consulta[req.params.key] = req.params.value;
-    modeloUsuario.find(consulta)
-    .then((result) => {
-        if (!result) {
+    modeloUsuario.find(consulta).then((result) => {
+        let arreglo = JSON.stringify(result);
+        if (arreglo === "[]") {
             return res.status(202).send({
-                mensaje:"No hay registro en la base de datos"
+                mensaje:"No hay registro en la base de datos",
+                status: 202,
+                result
             });
-        }
-        
-        return res.status(200).send({
-            status:"ok",
-            result
-        });        
+        } else {
+            return res.status(200).send({
+                mensaje:"Se obtuvo el usuario",
+                status:200,
+                result
+            });
+        }      
        
     }).catch((err) => {
        return res.status(404).send({
-           status:"Error",
+           mensaje:"Hubo un error al obtener el usuario",
+           status:404,
            err
         })
     })
@@ -84,20 +83,25 @@ const obtenerUsr = (req, res) => {
 const mostraTodosUsrs = (req, res) => {
     modeloUsuario.find({})
     .then((result) => {
-        if (!result) {
+        let arreglo = JSON.stringify(result);
+        if (arreglo === "[]") {
             return res.status(202).send({
                 mensaje:"No hay usuarios registrados",
-                status:"ok"
+                status:202
             });
-        } 
-        return res.status(200).send({
-            result
-        })
+        } else {
+            return res.status(200).send({
+                mensaje:"hay usuarios registrados",
+                status:200,
+                result
+            })
+        }
+        
         
     }).catch((err) => {
         return res.status(404).send({
             mensaje:"Error al mostrar los usuarios",
-            status:"Error",
+            status:404,
             err
         });
     })
