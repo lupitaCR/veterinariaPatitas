@@ -4,7 +4,7 @@ const citasControler = require("../controler/controlerCitas");
 
 router.get("/",citasControler.consultarCitas)
 .get("/:key/:value",citasControler.consultarCitaPorUsr)
-.post("/",citasControler.agregarCita)
+.post("/",citasControler.agregarC)
 .put("/:key/:value",citasControler.editarCita)
 .delete("/:key/:value",citasControler.eliminarCita);
 

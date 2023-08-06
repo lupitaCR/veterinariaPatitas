@@ -19,16 +19,11 @@ const citasSchema = Schema({
         default:"Pequeño"
     }, 
     telefono:{
-        type: Number,
+        type: String,
         required: true
     },
     fecha:{
-        type: Date,
-        default: Date.now
-    },
-    codigoCita:{
         type: String,
-        unique: true,
         required: true
     }
 })

@@ -70,7 +70,7 @@ const consultarCitaPorUsr = (req, res) => {
 /**
     * @description Funcion para agregar una cita(Admin and User)
 */
-const agregarCita = (req, res) => {
+const agregarCita = (req,res) => {
     let info = req.body;
     const cita = new modeloCita(info); 
 
@@ -135,9 +135,32 @@ const eliminarCita = (req, res) => {
     })
 };
 
+const agregarC = (req, res) => {
+    console.log('funcion agregarCita');
+    let info = req.body;
+    const usuario = new modeloCita(info);
+    console.log(info)
+    usuario.save().then((result) => {
+        console.log(result)
+        return res.status(200).send({
+            mensaje: "Usuario registrado",
+            status: 200,
+            result //toda la info de ese guardado
+        })
+    }).catch((err)=> {
+        console.log(err)
+            return res.status(404).send({
+                mensaje: "Error al registrar usuario",
+                status: 404,
+                err
+            })        
+    });
+
+};
+
 module.exports = {
     saludarCita,
-    agregarCita,
+    agregarC,
     consultarCitas,
     consultarCitaPorUsr,
     editarCita,

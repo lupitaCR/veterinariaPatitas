@@ -7,7 +7,7 @@ const accesoriosSchema = Schema({
         required: true
     },
     precio:{  
-        type: Number,
+        type: String,
         required: true
     },
     categoria:{
@@ -15,7 +15,7 @@ const accesoriosSchema = Schema({
         default:"Perro"
     },
     cantidad:{
-        type: Number,
+        type: String,
         required: true
     }
 })

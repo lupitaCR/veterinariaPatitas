@@ -21,7 +21,7 @@ const usersSchema = Schema({
         required: true 
     },
     telefono:{
-        type: Number,
+        type: String,
         required: true
     },
     direccion:{
@@ -38,9 +38,13 @@ const usersSchema = Schema({
     
 })
 
-usersSchema.methods.setImgUrl = function setImgUrl (filename) {
+/* usersSchema.methods.setImgUrl = function setImgUrl (filename) {
     //cambiar la ip de la imagen si se cambia de ip
-    this.imagenUrl = `http://192.168.0.108:3001/public/${filename}`
-}
+    if (filename == "null") {
+        this.imagenUrl = `http://192.168.0.104:3001/public/imag.png`
+    } else {
+        this.imagenUrl = `http://192.168.0.104:3001/public/${filename}`
+    }
+} */
 
 module.exports = mongoose.model("usuarios", usersSchema);

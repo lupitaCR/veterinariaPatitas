@@ -14,12 +14,6 @@ const agregarUsr = (req, res) => {
     console.log('funcion agregarUsr');
     let info = req.body;
     const usuario = new modeloUsuario(info);
-    console.log(info);
-    if (req.file) {
-        const { filename } = req.file
-        usuario.setImgUrl(filename);
-    }
-    
     usuario.save().then((result) => {
         console.log(req.body);
         return res.status(200).send({
